@@ -22,16 +22,19 @@ const callSendAPI = messageData => {
 };
 
 const receivedMessage = async event => {
-  conversation.process(event.message.text)
-    .then(response => {
-      const messageData = {
-        recipient: { id: event.sender.id },
-        message: { text: response.output.text[0] }
-      };
+  try {
+    const conversationResponse = await conversation.process(event.message.text);
 
-      callSendAPI(messageData);
-    })
-    .catch(err => console.log(err));
+    const messageData = {
+      recipient: { id: event.sender.id },
+      message: { text: conversationResponse.output.text[0] }
+    };
+
+    callSendAPI(messageData);
+
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const webhook = {

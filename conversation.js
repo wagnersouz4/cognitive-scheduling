@@ -17,7 +17,7 @@ const payload = {
 
 const sendToConversation = () => {
   return new Promise((resolve, reject) => {
-    conversation.message(payload, function (err, data) {
+    conversation.message(payload, function (error, data) {
       if (error) {
         console.log(error);
         reject(error);
